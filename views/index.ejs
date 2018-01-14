@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Shortener Microservice</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+  <header>
+
+    <div class="medium">
+    <ul>
+       <li class="M">M</li>
+       <li>Sign in</li>
+       <li>Get Started</li>
+    </ul>
+    <ul>
+       <li class="fccmed">FreeCodeCamp<i class="fa fa-free-code-camp" style="font-size:12px"></i></li>
+       <li>DEV</li>
+       <li>DESIGN</li>
+       <li>DATA</li>
+       <li>LEARN TO CODE FOR FREE</li>
+       <li><i class="fa fa-search"></i></li>
+       <li><a href="https://twitter.com/chanangae"><i class="fa fa-twitter icons"></i></a></li>
+       <li><a href="https://web.facebook.com/joseph.myalla"><i class="fa fa-facebook-official icons"></i></a></li>
+       <li><a href="https://github.com/sojelee"><i class="fa fa-github icons"></i></a></li>
+       <li>Follow</li>
+    </ul>
+  </div>
+     
+    </header>
+    <image>
+      <img src="https://avatars2.githubusercontent.com/u/5945067?v=4&amp;s=100" />
+   </image>
+   
+    <h1>
+        FreeCodeCamp API Basejump: URL Shortener Microservice
+      </h1>
+    <main>
+    <section class="leftBorder">
+      <p>
+      User Stories
+      </p>
+      <ol>
+        <li>I can pass a URL as aparameter and I will receive a shortened URL in the JSON response.</li>
+        <li>If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.</li>
+        <li>When I visit that shortened URL, it will redirect me to my original link.</li>
+       </ol>
+      </section> 
+      <section>
+        <h2>
+          Example Usage
+        </h2>
+        <code>
+          <ul>
+            <li>
+                https://sojelee-003.herokuapp.com/new/https://www.freecodecamp.com
+            </li>
+            <li>https://sojelee-003.herokuapp.com/new/http://getco.io:80</li>
+          </ul>
+        </code>
+        <h2>
+          Example Output
+        </h2>
+        <code>
+          <ul>
+            <li>  { "original_url":"http://getco.io:80", "short_url":"https://sojelee-003.herokuapp.com/8690" }</li>
+          </ul>
+         
+        </code>
+      </section>
+     
+    </main>
+
+    <footer>
+     
+    </footer>
+
+  </body>
+</html>
