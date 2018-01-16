@@ -1,4 +1,4 @@
-# URL Shortener Microservice API
+# Image Search Abstraction Layer
 
 
 # Author
@@ -6,13 +6,25 @@
 
 created by Joseph C Myalla
 
-# FreeCodeCamp API Basejump: Url Shortener API
+# FreeCodeCamp API Basejump:  Image Search Abstraction Layer
 
 User Stories
 
-1.  I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.
-1.	If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.
-1.	When I visit that shortened URL, it will redirect me to my original link.
+1.	I can get the image URLs, alt text and page urls for a set of images relating to a given search string.
+
+1.	I can paginate through the responses by adding a ?offset=2 parameter to the URL.
+
+1.	I can get a list of the most recently submitted search strings.
+
+
+
+
+#Library Used
+
+1.	node-google-image-search
+1.  mongodb
+1.	ejs
+1.	expressjs
 
 
 

@@ -1,0 +1,15 @@
+<pre>[
+    <% res.forEach(function(item) {%>
+        {
+        title:  <%= item.title %>,
+
+        url:<%= item.link %>
+
+        thumbnail:<a href="<%= item.image.thumbnailLink %>"><%= item.image.thumbnailLink %></a>
+
+        "contextLink": "<%= item.image.contextLink %>"
+
+        }
+    <% }); %>
+    ]
+</pre>

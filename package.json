@@ -1,21 +1,24 @@
 {
-  "name": "urlshortner",
+  "name": "ImageSearchAL",
   "version": "0.0.1",
-  "description": "What am I about?",
+  "description": "FreeCodeCamp Backend API Project, Image Search Abstraction Layer",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.2",
+    "bing.search": "^1.0.1",
+    "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
-    "mongodb": "^3.0.1"
+    "express": "^4.16.2",
+    "mongodb": "^3.0.1",
+    "node-google-image-search": "^1.0.3"
   },
   "engines": {
     "node": "8.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/welcome-project"
+    "url": "https://glitch.com/sojelee/#!/Image-Search-Abstraction-Layer"
   },
   "license": "ISC",
   "author": "Joseph C Myalla",

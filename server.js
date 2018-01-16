@@ -1,12 +1,13 @@
-var express = require('express');
-var url     = require('url');
-var ejs     = require('ejs');
-var mongodb = require('mongodb');
-var urldb   ="mongodb://joselee:joselee@ds251197.mlab.com:51197/url-short-api";
-var app     = express();
+var express       = require('express');
+var ejs           = require('ejs');
+require('dotenv').config();
+var imageSearch   = require('node-google-image-search');
+var mongodb       = require('mongodb');
+var urldb         = "mongodb://joselee:joselee@ds255787.mlab.com:55787/image-search-al";
+var app           = express();
+
 
 app.use(express.static('public'));
-
 app.set('view engine', 'ejs');
 
 
@@ -14,61 +15,43 @@ app.get('/',(req,res)=>{
   res.render('index')
 });
 
-app.get('/decode/:query(*)',(req,res)=>{
-    var qry = url.parse(req.params.query,true);
-    var urlcode = qry.path.split('/')[1];
-    mongodb.MongoClient.connect(urldb, function(err, database) {
-    if(err) throw err;
-    var mydb1 = database.db('url-short-api');
-    var cln1 = mydb1.collection('urlmaps');
-    cln1.find({code:urlcode}).toArray((err,docs)=>{
-        if(err) throw err;
-        docs.forEach(function (item){
-        res.redirect(item.original);
-    });
-        database.close();
-        
-    });
- }); 
+app.get('/api/imagesearch/:searchkey*',(req,res)=>{
+
+   const { searchkey } = req.params;
+   const { offSet }    = req.query;
+   const time          = new Date();
+
+     mongodb.MongoClient.connect(urldb, (err, database) => {
+         if(err) throw err;
+         const mydb = database.db('image-search-al');
+         const cln = mydb.collection('searchdocs');
+         cln.insert({searText:searchkey,when:time},(err,docs)=>{
+              if(err) throw err
+              database.close();
+         });
+      });
+	
+    const results = imageSearch(searchkey, (results)=>{
+       res.render('searchresults',{res:results});
+     }, 0, offSet || 5);
 
 });
 
-app.get('/new/:query(*)',(req,res)=>{
-  var qry = url.parse(req.params.query,true);
+app.get('/recentsearch',(req,res)=>{
+    
+          mongodb.MongoClient.connect(urldb, (err, database) => {
+          if(err) throw err;
+          const mydb1 = database.db('image-search-al');
+          const cln1 = mydb1.collection('searchdocs');
+                  cln1.find({}).sort( { when: -1 } ).toArray((err,docs)=>{
+                      if(err) throw err;
+                     res.render('recentsearch',{res:docs});
+                     database.close();
+          });
+       }); 
+})
 
-  if(typeof(qry.host)==="string"){
-    var dbrecordobject = generateMap(req.params.query);
-   
-  mongodb.MongoClient.connect(urldb, function(err, database) {
-  if(err) throw err;
-    var mydb = database.db('url-short-api');
-    var cln = mydb.collection('urlmaps');
-    cln.insert(dbrecordobject,(err,docs)=>{
-        if(err) throw err
-        res.render('results',{original:docs.ops[0].original,little:docs.ops[0].shortenedurl});
-        database.close();
-    });
- });
-}else{
-    res.render('invalid');
-  }
-});
 
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen((process.env.PORT || 8989), () => {
   console.log('Your app is listening on port ' + listener.address().port);
 });
-
-var getRandom=() =>{
-var a = Math.floor(Math.random() * 5) + 10;
-var b = Math.floor(Math.random() * 5);
-var c = Math.floor(Math.random() * 10)+ 15;
-return a+''+b+''+c;
-
-}
-
-var generateMap=(givenurl)=>{
-  var coded = getRandom();
-  var shorturl="foo.com/"+coded;
-  return {original:givenurl,code:coded,shortenedurl:shorturl};
-}
-
